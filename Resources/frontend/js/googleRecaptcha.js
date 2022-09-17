@@ -10,7 +10,6 @@
  *
  * */
 $(document).ready(function () {
-
 	/**
 	 * function handleSubmit
 	 *
@@ -31,8 +30,6 @@ $(document).ready(function () {
                         action: 'handleGoogleForm'
                     })
                     .then(function (token) {
-						console.log('token', token);
-						
 						$(form).find('.g-recaptcha-response').val(token);
 						$(form).submit();
                     });
@@ -193,5 +190,14 @@ $(document).ready(function () {
 	
 	$('.myfav--submit-invisible-recaptcha-forgotpassword').on('click', function(event) {
 		onSubmitInvisibleRecaptchaForgotPassword(event);
+	});
+	
+	/* Helper for shopping worlds - many shop owners use custom snippets in shopping worlds,
+	   so this helps, to make the captcha work there, too */
+	$.subscribe("plugin/swEmotionLoader/onLoadEmotionFinished", function(me) {
+		$('.myfav--submit-invisible-recaptcha-footerNewsletter').off('click');
+		$('.myfav--submit-invisible-recaptcha-footerNewsletter').on('click', function(event) {
+			onSubmitInvisibleRecaptchaFooterNewsletter(event);
+		});
 	});
 });
