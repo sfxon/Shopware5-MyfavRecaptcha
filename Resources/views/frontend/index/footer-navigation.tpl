@@ -23,9 +23,9 @@
 {block name="frontend_index_footer_column_newsletter_privacy"}
 	{$smarty.block.parent}
     
-    {block name="frontend_index_footer_column_newsletter_form_submit"}
+    {if $myfavRecaptcha.showRecaptchaForNewsletter && $myfavRecaptcha.recaptchaAPIKey}
         <div class="myfav-inform-privacy-recaptcha">
             {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
         </div>
-    {/block}
+    {/if}
 {/block}
