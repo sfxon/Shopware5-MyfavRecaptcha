@@ -1,0 +1,45 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Subscribers -->
+        <service id="myfav_recaptcha.subscriber.account_subscriber" class="MyfavRecaptcha\Subscriber\AccountSubscriber">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="guzzle_http_client_factory"/>
+			<tag name="shopware.event_subscriber"/>
+        </service>
+		
+		<service id="myfav_recaptcha.subscriber.forms_subscriber" class="MyfavRecaptcha\Subscriber\FormsSubscriber">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="guzzle_http_client_factory"/>
+			<tag name="shopware.event_subscriber"/>
+        </service>
+		
+		<service id="myfav_recaptcha.subscriber.notification_subscriber" class="MyfavRecaptcha\Subscriber\NotificationSubscriber">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="guzzle_http_client_factory"/>
+			<tag name="shopware.event_subscriber"/>
+        </service>
+		
+		<service id="myfav_recaptcha.subscriber.security_subscriber" class="MyfavRecaptcha\Subscriber\SecuritySubscriber">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="db"/>
+            <argument type="service" id="guzzle_http_client_factory"/>
+            <argument>%myfav_recaptcha.plugin_dir%</argument>
+            <argument type="service" id="snippets"/>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+		
+		<service id="myfav_recaptcha.subscriber.templateRegistration" class="MyfavRecaptcha\Subscriber\TemplateRegistration">
+            <argument>%myfav_recaptcha.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+		
+		<!-- Services -->		
+		<service id="myfav_recaptcha.services.recaptcha_service"
+                 class="MyfavRecaptcha\Services\ReCaptchaService">
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="snippets"/>
+        </service>
+    </services>
+</container>

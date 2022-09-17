@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
+				
+    <label lang="de">Google reCAPTCHA v3 Async</label>
+    <label lang="en">Google reCAPTCHA v3 Async</label>
+
+    <version>1.0.0</version>
+    <copyright>(c) by Mindfav</copyright>
+    <license>MIT</license>
+    <link>http://mindfav.com/Shopware5/Google-Recaptcha-Async</link>
+    <author>SK</author>
+    <compatibility minVersion="5.6.2"/>
+
+    <changelog version="1.0.0">
+        <changes lang="de">Erstveröffentlichung</changes>
+        <changes lang="en">First release</changes>
+    </changelog>
+	
+	<description lang="de">
+		<![CDATA[
+		<h1>Google reCAPTCHA v3 Async</h1>
+		
+		<h2>1. Über das Plugin</h2>
+		<p>Asynchrone Implementierung von Google Recaptcha. Lädt Recaptcha erst, nachdem der User einen Button zum Absenden angeklickt hat.</p>
+		<p>Dieses Plugin ist auf Basis des originalen Mittwald Security Plugins für Shopware entstanden. Die Google Recaptcha Funktionalität wurde herausgelöst, und in dieses Plugin integriert.</p>
+		]]>
+    </description>
+    <description lang="en">
+    	<![CDATA[
+		<h1>Google reCAPTCHA v3 Async</h1>
+		
+		<h2>1. About the plugin</h2>
+		<p>Asynchronous Implementation of Google Recaptcha. Loads recaptcha, when the button for sending has been clicked.</p>
+		<p>This plugin is based on the original Mittwald Security Plugin for Shopware. The Google Recaptcha functionality has been extracted and integrated into this plugin.</p>
+		]]>
+	</description>
+</plugin>

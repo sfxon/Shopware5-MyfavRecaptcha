@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.4/engine/Shopware/Components/Plugin/schema/config.xsd">
+
+    <elements>
+		<element required="true" type="button" scope="shop">
+            <name>recaptchaGroup</name>
+            <label lang="en"></label>
+            <label lang="de">reCaptcha</label>
+        </element>
+
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForUserRegistration</name>
+            <label lang="en"></label>
+            <label lang="de">Im Registrierungsformular verwenden</label>
+            <value>0</value>
+        </element>
+
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForNewsletter</name>
+            <label lang="en"></label>
+            <label lang="de">Im Newsletter verwenden</label>
+            <value>0</value>
+        </element>
+
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForInStockForm</name>
+            <label lang="en"></label>
+            <label lang="de">In 'Artikel wieder verfügbar' verwenden</label>
+            <value>0</value>
+        </element>
+
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForForms</name>
+            <label lang="en"></label>
+            <label lang="de">In Formularen verwenden</label>
+            <value>0</value>
+        </element>
+
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForPasswordreset</name>
+            <label lang="en"></label>
+            <label lang="de">In 'Passwort vergessen' verwenden</label>
+            <value>0</value>
+        </element>
+
+        <element required="false" type="text" scope="shop">
+            <name>recaptchaAPIKey</name>
+            <label lang="en"></label>
+            <label lang="de">reCAPTCHA Websiteschlüssel</label>
+            <description lang="de">Hier können Sie sich die entsprechenden Schlüssel generieren: https://www.google.com/recaptcha/admin</description>
+        </element>
+
+        <element required="false" type="text" scope="shop">
+            <name>recaptchaSecretKey</name>
+            <label lang="en"></label>
+            <label lang="de">reCAPTCHA Geheimer Schlüssel</label>
+            <description lang="de">Hier können Sie sich die entsprechenden Schlüssel generieren: https://www.google.com/recaptcha/admin</description>
+        </element>
+    </elements>
+</config>
