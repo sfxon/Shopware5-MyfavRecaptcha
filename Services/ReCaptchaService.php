@@ -4,11 +4,11 @@ namespace MyfavRecaptcha\Services;
 
 use Enlight_Config;
 use Enlight_Controller_Action;
+use Exception;
 use GuzzleHttp\ClientInterface;
+use MyfavRecaptcha\Setup\ConstantsProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Shopware_Components_Snippet_Manager;
-use Exception;
-use MyfavRecaptcha\Setup\ConstantsProvider;
 
 /**
  * Class ReCaptchaService

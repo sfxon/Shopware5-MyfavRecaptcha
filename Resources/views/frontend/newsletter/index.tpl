@@ -6,7 +6,7 @@
     {if $myfavRecaptcha.showRecaptchaForNewsletter && $myfavRecaptcha.recaptchaAPIKey}
         <input type="hidden" class="myfav-recaptcha-public-key" value="{$myfavRecaptcha.recaptchaAPIKey}" />
         <input type="hidden" name="g-recaptcha-response" class="g-recaptcha-response" />
-        <div class="register--action">
+        <div class="newsletter--action">
             <button class="g-recaptcha myfav--submit-invisible-recaptcha-formNewsletter btn is--primary right is--icon-right"
                     type="submit"
                     name="{s name="sNewsletterButton"}{/s}"
@@ -24,7 +24,9 @@
 {block name="frontend_newsletter_form_privacy"}
 	{$smarty.block.parent}
     
-    <div class="myfav-inform-privacy-recaptcha">
-    	{s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
-    </div>
+    {if $myfavRecaptcha.showRecaptchaForNewsletter && $myfavRecaptcha.recaptchaAPIKey}
+        <div class="myfav-inform-privacy-recaptcha">
+            {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
+        </div>
+    {/if}
 {/block}
