@@ -23,7 +23,9 @@
 {block name="frontend_index_footer_column_newsletter_privacy"}
 	{$smarty.block.parent}
     
-    <div class="myfav-inform-privacy-recaptcha">
-    	{s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
-    </div>
+    {block name="frontend_index_footer_column_newsletter_form_submit"}
+        <div class="myfav-inform-privacy-recaptcha">
+            {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
+        </div>
+    {/block}
 {/block}
