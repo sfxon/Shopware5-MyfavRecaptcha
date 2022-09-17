@@ -19,7 +19,9 @@
     {if $myfavRecaptcha.showRecaptchaForPasswordreset && $myfavRecaptcha.recaptchaAPIKey}
         {* reCAPTCHA Version 3 *}
         <div class="myfav-inform-privacy-recaptcha">
-            {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
+        	<div class="password-reset--form-content panel--body is--wide is--align-center">
+	            {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
+            </div>
         </div>
         
         <div class="password-reset--form-actions panel--actions is--wide is--align-center">
