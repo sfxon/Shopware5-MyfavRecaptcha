@@ -21,8 +21,8 @@ class MyfavRecaptcha extends Plugin
     public function activate(ActivateContext $activateContext)
     {
         $activateContext->scheduleClearCache(
-			ActivateContext::CACHE_LIST_ALL
-		);
+            ActivateContext::CACHE_LIST_ALL
+        );
     }
 
     public function deactivate(DeactivateContext $deactivateContext)
@@ -35,7 +35,7 @@ class MyfavRecaptcha extends Plugin
     public function uninstall(UninstallContext $uninstallContext)
     {
         if ($uninstallContext->keepUserData()) {
-			$uninstallContext->scheduleClearCache(UninstallContext::CACHE_LIST_ALL);
+            $uninstallContext->scheduleClearCache(UninstallContext::CACHE_LIST_ALL);
             return;
         }
 

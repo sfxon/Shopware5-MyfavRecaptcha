@@ -68,7 +68,7 @@ class NotificationSubscriber implements SubscriberInterface
      */
     public function beforeDetailnotifyAction(\Enlight_Event_EventArgs $args)
     {
-	    /** @var Enlight_Controller_Action $controller */
+        /** @var Enlight_Controller_Action $controller */
         $controller = $args->get('subject');
 
         /** @var Enlight_View_Default $view */
@@ -114,12 +114,11 @@ class NotificationSubscriber implements SubscriberInterface
 
         /** @var Enlight_Controller_Request_Request $request */
         $request = $controller->Request();
-		
 
         if ($request->getActionName() !== 'index') {
             return;
         }
-		
+
         if ($this->pluginConfig['showRecaptchaForInStockForm']) {
             $view->assign('myfavRecaptcha', $this->pluginConfig);
 

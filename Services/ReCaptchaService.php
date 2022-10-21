@@ -48,7 +48,7 @@ class ReCaptchaService
      * @return mixed
      * @throws Exception
      * @author Mittwald CM Service GmbH & Co. KG <opensource@mittwald.de>
-	 * @author Mindfav Software, Steve Krämer <steve@mindfav.com>
+     * @author Mindfav Software, Steve Krämer <steve@mindfav.com>
      */
     public function initReCaptcha($controller, $pluginConfig, $client)
     {
@@ -81,7 +81,7 @@ class ReCaptchaService
                     (in_array('missing-input-secret', $responseData['error-codes']) ||
                         in_array('invalid-input-secret', $responseData['error-codes']))
                 ) {
-					// could do logging here.
+                    // could do logging here.
                 }
 
                 $controller->View()->sStatus = [

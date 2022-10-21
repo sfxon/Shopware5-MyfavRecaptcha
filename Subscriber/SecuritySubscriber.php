@@ -65,8 +65,8 @@ class SecuritySubscriber implements SubscriberInterface
 
     /** @var ReCaptchaService */
     protected $reCaptchaService;
-	
-	    /** @var string shopwareVersion */
+
+    /** @var string shopwareVersion */
     protected $shopwareVersion;
 
     /**
@@ -88,7 +88,7 @@ class SecuritySubscriber implements SubscriberInterface
     {
         $this->container = $container;
         $this->modelManager = $this->container->get('models');
-		$this->pluginConfig = $this->container->get('shopware.plugin.config_reader')->getByPluginName('MyfavRecaptcha', $this->container->get('shop'));
+        $this->pluginConfig = $this->container->get('shopware.plugin.config_reader')->getByPluginName('MyfavRecaptcha', $this->container->get('shop'));
 
         $this->shopConfig = $this->container->get('config');
         $this->db = $db;
@@ -222,7 +222,7 @@ class SecuritySubscriber implements SubscriberInterface
 
             $this->captchaChecked = true;
         }
-		
+
         if (count($errors['personal']) > 0) {
             $controller->View()->assign('errors', $errors);
             $controller->View()->assign($postData);
@@ -232,30 +232,6 @@ class SecuritySubscriber implements SubscriberInterface
 
         return null;
     }
-
-
-
-    /**
-     * add our frontend templates for password strength
-     *
-     * @param Enlight_Event_EventArgs $args
-     */
-    /*
-	public function onFrontendAccount(Enlight_Event_EventArgs $args)
-    {
-        if (!$this->pluginConfig['showPasswordStrengthForgotPasswordReset'] &&
-            !$this->pluginConfig['showPasswordStrengthAccountPasswordReset']
-        ) {
-            return;
-        }
-
-        
-        // @var Enlight_Controller_Action $controller
-        $controller = $args->get('subject');
-        $view = $controller->View();
-        $view->assign('mstConfig', $this->pluginConfig);
-    }
-
 
     /**
      * add our frontend templates for password strength and reCAPTCHA if necessary
@@ -281,7 +257,7 @@ class SecuritySubscriber implements SubscriberInterface
      *
      * @param Enlight_Event_EventArgs $args
      */
-	public function addNewsletterRecaptcha(Enlight_Event_EventArgs $args)
+    public function addNewsletterRecaptcha(Enlight_Event_EventArgs $args)
     {
         if (!$this->pluginConfig['showRecaptchaForNewsletter'] || !$this->pluginConfig['recaptchaAPIKey']) {
             return;
