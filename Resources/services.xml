@@ -36,8 +36,7 @@
         </service>
 		
 		<!-- Services -->		
-		<service id="myfav_recaptcha.services.recaptcha_service"
-                 class="MyfavRecaptcha\Services\ReCaptchaService">
+		<service id="myfav_recaptcha.services.recaptcha_service" class="MyfavRecaptcha\Services\ReCaptchaService" public="true">
             <argument type="service" id="service_container"/>
             <argument type="service" id="snippets"/>
         </service>
