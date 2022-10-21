@@ -132,15 +132,30 @@ $(document).ready(function () {
 					
 				// Prüfen, ob es das Passwort-Feld ist, und ob das Passwort-Feld auch sichtbar ist.
 				} else if($(this).attr('id') == 'register_personal_password') {
-					var passwordContainer = $(this).closest('.register--account-information');
+					var passwordHtmlContainer = $(this).closest('.register--account-information');
 					
-					if(passwordContainer.length > 0 && !$(passwordContainer).hasClass('is--hidden')) {
+					if(passwordHtmlContainer.length > 0 && !$(passwordHtmlContainer).hasClass('is--hidden')) {
 						console.log('Fehlerhaftes Passwort-Feld, weil das nicht leer ist.');
 						isValid = false;
 					}
-				} else {
-					console.log('Fehlerhaftes sonstiges Feld: ', this);
-					isValid = false;
+				
+                // Prüfen, ob es das "Anrede" Feld ist, und ob dieses auch wirklich nicht leer ist.
+                } else if($(this).attr('id') == 'salutation') {
+                    var salutationHtmlContaienr = $(this).closest('.register--salutation');
+					
+					if(salutationHtmlContaienr.length > 0 && !$(salutationHtmlContaienr).hasClass('is--hidden')) {
+						console.log('Fehlerhaftes Salutation-Feld, weil das nicht leer ist.');
+						isValid = false;
+					}
+                } else {
+                    // Skip divs. Some templates seem to also set the is--required class to divs.
+                    if($(this).prop('nodeName') != "DIV") {
+                        console.log('Fehlerhaftes sonstiges Feld: ', this);
+                        console.log();
+                        console.log($(this).attr('id'));
+                        console.log($(this).prop('nodeName'));
+                        isValid = false;
+                    }
 				}
 			}
 		});
