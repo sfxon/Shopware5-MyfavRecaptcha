@@ -69,6 +69,20 @@ $(document).ready(function () {
 		handleSubmit(button, form);
 	}
 
+    /**
+     * function onSubmitInvisibleRecaptchaComment
+     *
+     * this will handle the validation of invisible recaptcha v2 and v3 on product comment forms.
+     * */
+     function onSubmitInvisibleRecaptchaComment (event) {
+        event.stopPropagation();
+		event.preventDefault();
+
+        var button = $('.myfav--submit-invisible-recaptcha-comment');
+        var form = button.closest('form');
+        handleSubmit(button, form);
+    };
+
 	/**
 	 * function onSubmitInvisibleRecaptchaFooterNewsletter
 	 *
@@ -190,6 +204,10 @@ $(document).ready(function () {
 	$('.myfav--submit-invisible-recaptcha-register').on('click', function(event) {
 		onSubmitInvisibleRecaptchaRegister(event);
 	});
+
+    $('.myfav--submit-invisible-recaptcha-comment').on('click', function(event) {
+        onSubmitInvisibleRecaptchaComment(event);
+    });
 	
 	$('.myfav--submit-invisible-recaptcha-notification').on('click', function(event) {
 		onSubmitInvisibleRecaptchaNotification(event);

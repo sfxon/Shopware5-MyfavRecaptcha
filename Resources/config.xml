@@ -44,6 +44,13 @@
             <value>0</value>
         </element>
 
+        <element required="true" type="boolean" scope="shop">
+            <name>showRecaptchaForRatingForm</name>
+            <label lang="en"></label>
+            <label lang="de">Bei Produktbewertung verwenden</label>
+            <value>0</value>
+        </element>
+
         <element required="false" type="text" scope="shop">
             <name>recaptchaAPIKey</name>
             <label lang="en"></label>
