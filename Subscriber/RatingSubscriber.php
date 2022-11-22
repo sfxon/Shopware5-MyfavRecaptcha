@@ -92,23 +92,32 @@ class RatingSubscriber implements SubscriberInterface
         }
 
         /** Captcha Validation - START */
-        if (is_null($request->getParam('sConfirmation'))) {
-            if ($this->pluginConfig['showRecaptchaForRatingForm']) {
-                $view->assign('myfavRecaptcha', $this->pluginConfig);
+        //if (is_null($request->getParam('sConfirmation'))) {
+        if ($this->pluginConfig['showRecaptchaForRatingForm']) {
+            $view->assign('myfavRecaptcha', $this->pluginConfig);
 
-                $this->reCaptchaService = $this->container->get('myfav_recaptcha.services.recaptcha_service');
-                $reCaptcha = $this->reCaptchaService->initReCaptcha($controller, $this->pluginConfig, $this->client);
+            $this->reCaptchaService = $this->container->get('myfav_recaptcha.services.recaptcha_service');
+            $reCaptcha = $this->reCaptchaService->initReCaptcha($controller, $this->pluginConfig, $this->client);
 
-                if ($reCaptcha === 'error') {
+            if ($reCaptcha === 'error') {
+                $this->captchaError = true;
+                $sErrorFlag['sCaptcha'] = true;
+            } else {
+                $lastScore = $this->reCaptchaService->getLastScore();
+
+                if($lastScore < 0.7) {
                     $this->captchaError = true;
                     $sErrorFlag['sCaptcha'] = true;
+
+                    die('lastScore: ' .$lastScore);
                 } else {
                     $this->captchaError = false;
                 }
-
-                $request->setParam('sysg_rating_captchaError', $this->captchaError);
             }
+
+            $request->setParam('sysg_rating_captchaError', $this->captchaError);
         }
+        //}
         /** Captcha Validation - END */
 
         $voteConfirmed = false;

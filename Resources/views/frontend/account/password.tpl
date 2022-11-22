@@ -6,7 +6,7 @@
             {* reCAPTCHA Version 3 *}
             {$smarty.block.parent}
             <input type="hidden" class="myfav-recaptcha-public-key" value="{$myfavRecaptcha.recaptchaAPIKey}" />
-            <input type="hidden" name="g-recaptcha-response" class="g-recaptcha-response" />
+	        <input type="hidden" name="g-recaptcha-response" class="g-recaptcha-response" />
         {if $reCaptchaErrorPasswordreset}
             {include file="frontend/index/snippets/recaptcha_error.tpl"}
         {/if}
@@ -19,11 +19,11 @@
     {if $myfavRecaptcha.showRecaptchaForPasswordreset && $myfavRecaptcha.recaptchaAPIKey}
         {* reCAPTCHA Version 3 *}
         <div class="myfav-inform-privacy-recaptcha">
-            <div class="password-reset--form-content panel--body is--wide is--align-center">
-                {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
+        	<div class="password-reset--form-content panel--body is--wide is--align-center">
+	            {s name="myfav_inform_privacy_recaptcha"}Wir verwenden Google Recaptcha. Beim Klick auf Weiter stimmen Sie dem Nachladen von Fonts und Google Recaptcha von Google zu. Beim Ladevorgang werden Daten an Google übertragen.{/s}
             </div>
         </div>
-
+        
         <div class="password-reset--form-actions panel--actions is--wide is--align-center">
             <a href="{url controller='account'}"
                class="password-reset--link btn is--secondary is--icon-left is--center">

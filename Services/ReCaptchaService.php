@@ -26,6 +26,7 @@ class ReCaptchaService
 
     /** @var bool */
     protected $captchaChecked = false;
+    private $lastScore = 0;
 
     /**
      * Detail constructor.
@@ -91,6 +92,16 @@ class ReCaptchaService
                 ];
                 return 'error';
             } else {
+                if(!isset($responseData['score'])) {
+                    $controller->View()->sStatus = [
+                        'code' => 5,
+                        'message' => $this->snippets->getNamespace('plugins/MyfavRecaptcha/reCAPTCHA')
+                            ->get('captchaFailed', 'Captcha-Überprüfung fehlgeschlagen', true)
+                    ];
+                    return 'error';
+                }
+
+                $this->lastScore = $responseData['score'];
                 return 'success';
             }
         }
@@ -146,5 +157,9 @@ class ReCaptchaService
         }
 
         return $responseData;
+    }
+
+    public function getLastScore() {
+        return $this->lastScore;
     }
 }

@@ -48,7 +48,7 @@ class AccountSubscriber implements SubscriberInterface
     {
         $this->container = $container;
         $this->client = $guzzleFactory->createClient();
-        $this->pluginConfig = $this->container->get('shopware.plugin.config_reader')->getByPluginName('MyfavRecaptcha', $this->container->get('shop'));
+		$this->pluginConfig = $this->container->get('shopware.plugin.config_reader')->getByPluginName('MyfavRecaptcha', $this->container->get('shop'));
     }
 
     /**
