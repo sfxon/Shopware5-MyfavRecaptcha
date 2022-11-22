@@ -50,6 +50,10 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-form');
         var form = button.closest('form');
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
         
         handleSubmit(button, form);
     };
@@ -65,6 +69,10 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-notification');
         var form = button.closest('form');
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
         
         handleSubmit(button, form);
     }
@@ -80,6 +88,13 @@ $(document).ready(function () {
 
         var button = $('.myfav--submit-invisible-recaptcha-comment');
         var form = button.closest('form');
+
+        console.log(form[0]);
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
+
         handleSubmit(button, form);
     };
 
@@ -94,6 +109,10 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-footerNewsletter');
         var form = button.closest('form');
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
         
         handleSubmit(button, form);
     }
@@ -110,6 +129,10 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-formNewsletter');
         var form = button.closest('form');
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
         
         handleSubmit(button, form);
     }
@@ -127,54 +150,8 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-register');
         var form = button.closest('form');
-        
-        var isValid = true;
-        
-        // Check all form fields
-        $('#register--form .is--required:not(:disabled)').each(function() {
-            var tmpval = $(this).val();
-            
-            if(tmpval === null || tmpval.length == 0) {
-                // Check if this is in register-shipping, and register shipping is hidden.
-                var isRegisterShipping = $(this).closest('.register--shipping');
-                
-                if(isRegisterShipping.length > 0) {
-                    if(!$(isRegisterShipping).hasClass('is--hidden')) {
-                        console.log('Fehlerhaftes Feld bei abweichende Lieferadresse, weil die aktiviert ist.');
-                        isValid = false;
-                    }
-                    
-                // Prüfen, ob es das Passwort-Feld ist, und ob das Passwort-Feld auch sichtbar ist.
-                } else if($(this).attr('id') == 'register_personal_password') {
-                    var passwordHtmlContainer = $(this).closest('.register--account-information');
-                    
-                    if(passwordHtmlContainer.length > 0 && !$(passwordHtmlContainer).hasClass('is--hidden')) {
-                        console.log('Fehlerhaftes Passwort-Feld, weil das nicht leer ist.');
-                        isValid = false;
-                    }
-                
-                // Prüfen, ob es das "Anrede" Feld ist, und ob dieses auch wirklich nicht leer ist.
-                } else if($(this).attr('id') == 'salutation') {
-                    var salutationHtmlContaienr = $(this).closest('.register--salutation');
-                    
-                    if(salutationHtmlContaienr.length > 0 && !$(salutationHtmlContaienr).hasClass('is--hidden')) {
-                        console.log('Fehlerhaftes Salutation-Feld, weil das nicht leer ist.');
-                        isValid = false;
-                    }
-                } else {
-                    // Skip divs. Some templates seem to also set the is--required class to divs.
-                    if($(this).prop('nodeName') != "DIV") {
-                        console.log('Fehlerhaftes sonstiges Feld: ', this);
-                        console.log();
-                        console.log($(this).attr('id'));
-                        console.log($(this).prop('nodeName'));
-                        isValid = false;
-                    }
-                }
-            }
-        });
-        
-        if(!isValid) {
+
+        if(false == form[0].reportValidity()) {
             return;
         }
         
@@ -192,6 +169,10 @@ $(document).ready(function () {
         
         var button = $('.myfav--submit-invisible-recaptcha-forgotpassword');
         var form = button.closest('form');
+
+        if(false == form[0].reportValidity()) {
+            return;
+        }
         
         handleSubmit(button, form);
     }
