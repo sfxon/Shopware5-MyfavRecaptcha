@@ -54,8 +54,9 @@ class RatingSubscriber implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Shopware_Controllers_Frontend_Detail::ratingAction::replace' => 'onDetailRatingActionReplace',
-            'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => ['afterDetailRatingAction',10],
+            //'Shopware_Controllers_Frontend_Detail::ratingAction' => 'onDetailRatingActionReplace',
+            //'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => ['onDetailRatingAction', 10],
+            'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => ['afterDetailRatingAction', 10],
         ];
     }
 
@@ -69,7 +70,7 @@ class RatingSubscriber implements SubscriberInterface
      * @author Mittwald CM Service GmbH & Co. KG <opensource@mittwald.de>
      * @return mixed
      */
-    public function onDetailRatingActionReplace(\Enlight_Hook_HookArgs $args)
+    public function onDetailRatingAction(\Enlight_Event_EventArgs  $args)
     {
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
@@ -105,11 +106,9 @@ class RatingSubscriber implements SubscriberInterface
             } else {
                 $lastScore = $this->reCaptchaService->getLastScore();
 
-                if($lastScore < 0.7) {
+                if($lastScore < 0.9) {
                     $this->captchaError = true;
                     $sErrorFlag['sCaptcha'] = true;
-
-                    die('lastScore: ' .$lastScore);
                 } else {
                     $this->captchaError = false;
                 }
@@ -193,10 +192,12 @@ class RatingSubscriber implements SubscriberInterface
 
         $view->assign('sAction', 'ratingAction');
 
+        /*
         $controller->forward(
             $request->getParam('sTargetAction', 'index'),
             $request->getParam('sTarget', 'detail')
         );
+        */
     }
 
 
@@ -206,6 +207,15 @@ class RatingSubscriber implements SubscriberInterface
      */
     public function afterDetailRatingAction(Enlight_Event_EventArgs $args)
     {
+        $subject = $args->getSubject();
+        $action = Shopware()->Container()->get('front')->Request();
+        $action = $action->get('action');
+
+        if($action == 'rating') {
+            $this->onDetailRatingAction($args);
+            return;
+        }
+
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->get('subject');
 
