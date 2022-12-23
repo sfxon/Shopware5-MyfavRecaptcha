@@ -192,40 +192,4 @@ class RatingSubscriber implements SubscriberInterface
 
         $_POST['myfavAlreadyProcessed'] = true;
     }
-
-
-    /**
-     * @param Enlight_Event_EventArgs $args
-     * @throws \Exception
-     */
-    /*
-    public function afterDetailRatingAction(Enlight_Event_EventArgs $args)
-    {
-
-        /** @var Enlight_Controller_Action $controller *//*
-        $controller = $args->get('subject');
-
-        /** @var Enlight_View_Default $view *//*
-        $view = $controller->View();
-
-        /** @var Enlight_Controller_Request_Request $request *//*
-        $request = $controller->Request();
-
-        if ($request->getActionName() !== 'index') {
-            return;
-        }
-
-        if ($this->pluginConfig['showRecaptchaForRatingForm']) {
-            $view->assign('myfavRecaptcha', $this->pluginConfig);
-
-            if ($request->getParam('sysg_rating_captchaError') === true) {
-                $this->captchaError = true;
-                $sErrorFlag['sCaptcha'] = true;
-                $view->assign('sErrorFlag', $sErrorFlag);
-            } else {
-                $this->captchaError = false;
-            }
-        }
-    }
-    */
 }
