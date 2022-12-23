@@ -79,6 +79,8 @@ class RatingSubscriber implements SubscriberInterface
      */
     public function onDetailRatingAction(\Enlight_Event_EventArgs  $args)
     {
+        // This is needed, because the pre-dispatch part is called multiple times,
+        // but we only want one validation.
         if(isset($_POST['myfavAlreadyProcessed'])) {
             return;
         }
@@ -104,7 +106,6 @@ class RatingSubscriber implements SubscriberInterface
         }
 
         /** Captcha Validation - START */
-        //if (is_null($request->getParam('sConfirmation'))) {
         if ($this->pluginConfig['showRecaptchaForRatingForm']) {
             $view->assign('myfavRecaptcha', $this->pluginConfig);
 
@@ -127,7 +128,6 @@ class RatingSubscriber implements SubscriberInterface
 
             $request->setParam('sysg_rating_captchaError', $this->captchaError);
         }
-        //}
         /** Captcha Validation - END */
 
         $voteConfirmed = false;
@@ -170,18 +170,10 @@ class RatingSubscriber implements SubscriberInterface
         }
 
         if (empty($sErrorFlag)) {
-            if (!empty(Shopware()->Config()->sOPTINVOTE)
-                && !$voteConfirmed && empty(Shopware()->Session()->sUserId)
-            ) {
-                /*
-                Wir lassen den Standard-Controller die Arbeit machen.
-                Dieser Controller hier hat lediglich im Pre-Dispatch
-                geprüft, ob die Anfrage valid ist.
-                */
-            } else {
-                unset(Shopware()->Config()->sOPTINVOTE);
-                Shopware()->Modules()->Articles()->sSaveComment($id);
-            }
+            /*
+            We let the default Voting-Controller do the real work.
+            This controller is only for the captcha check in the pre-dispatch process.
+            */
         } else {
             $view->assign('sFormData', Shopware()->System()->_POST->toArray());
             $view->assign('sErrorFlag', $sErrorFlag);
@@ -190,6 +182,8 @@ class RatingSubscriber implements SubscriberInterface
 
         $view->assign('sAction', 'ratingAction');
 
-        $_POST['myfavAlreadyProcessed'] = true;
+        // This is needed, because the pre-dispatch part is called multiple times,
+        // but we only want one validation.
+        $_POST['myfavAlreadyProcessed'] = true; 
     }
 }
