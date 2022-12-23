@@ -54,10 +54,17 @@ class RatingSubscriber implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            //'Shopware_Controllers_Frontend_Detail::ratingAction' => 'onDetailRatingActionReplace',
-            //'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => ['onDetailRatingAction', 10],
-            'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => ['afterDetailRatingAction', 10],
+            'Enlight_Controller_Action_PreDispatch_Frontend_Detail' => 'onDetailRating'
         ];
+    }
+
+    public function onDetailRating(\Enlight_Event_EventArgs $args) {
+        $action = Shopware()->Container()->get('front')->Request();
+        $action = $action->get('action');
+        
+        if($action == 'rating') {
+            $this->onDetailRatingAction($args);
+        }
     }
 
 
@@ -72,6 +79,10 @@ class RatingSubscriber implements SubscriberInterface
      */
     public function onDetailRatingAction(\Enlight_Event_EventArgs  $args)
     {
+        if(isset($_POST['myfavAlreadyProcessed'])) {
+            return;
+        }
+        
         /** @var Enlight_Controller_Action $controller */
         $controller = $args->getSubject();
 
@@ -129,6 +140,11 @@ class RatingSubscriber implements SubscriberInterface
                 Shopware()->System()->_POST = unserialize($getVote['data'], ['allowed_classes' => false]);
                 $voteConfirmed = true;
                 Shopware()->Db()->query('DELETE FROM s_core_optin WHERE hash = ?', [$hash]);
+                
+                unset(Shopware()->Config()->sOPTINVOTE);
+                Shopware()->Modules()->Articles()->sSaveComment($id);
+
+                die('Vielen Dank für Ihre Bewertung. Sie haben die Bewertung hiermit erfolgreich bestätigt. Wir werden diese prüfen und in Kürze freischalten.');
             }
         }
 
@@ -157,30 +173,11 @@ class RatingSubscriber implements SubscriberInterface
             if (!empty(Shopware()->Config()->sOPTINVOTE)
                 && !$voteConfirmed && empty(Shopware()->Session()->sUserId)
             ) {
-                $hash = \Shopware\Components\Random::getAlphanumericString(32);
-                $sql = '
-                    INSERT INTO s_core_optin (datum, hash, data, type)
-                    VALUES (NOW(), ?, ?, "swProductVote")
-                ';
-                Shopware()->Db()->query($sql, [
-                    $hash, serialize(Shopware()->System()->_POST->toArray()),
-                ]);
-
-                $link = Shopware()->Front()->Router()->assemble([
-                    'sViewport' => 'detail',
-                    'action' => 'rating',
-                    'sArticle' => $id,
-                    'sConfirmation' => $hash,
-                ]);
-
-                $context = [
-                    'sConfirmLink' => $link,
-                    'sArticle' => ['articleName' => $product],
-                ];
-
-                $mail = Shopware()->TemplateMail()->createMail('sOPTINVOTE', $context);
-                $mail->addTo($request->getParam('sVoteMail'));
-                $mail->send();
+                /*
+                Wir lassen den Standard-Controller die Arbeit machen.
+                Dieser Controller hier hat lediglich im Pre-Dispatch
+                geprüft, ob die Anfrage valid ist.
+                */
             } else {
                 unset(Shopware()->Config()->sOPTINVOTE);
                 Shopware()->Modules()->Articles()->sSaveComment($id);
@@ -188,16 +185,12 @@ class RatingSubscriber implements SubscriberInterface
         } else {
             $view->assign('sFormData', Shopware()->System()->_POST->toArray());
             $view->assign('sErrorFlag', $sErrorFlag);
+            die('invalid form');
         }
 
         $view->assign('sAction', 'ratingAction');
 
-        /*
-        $controller->forward(
-            $request->getParam('sTargetAction', 'index'),
-            $request->getParam('sTarget', 'detail')
-        );
-        */
+        $_POST['myfavAlreadyProcessed'] = true;
     }
 
 
@@ -205,24 +198,17 @@ class RatingSubscriber implements SubscriberInterface
      * @param Enlight_Event_EventArgs $args
      * @throws \Exception
      */
+    /*
     public function afterDetailRatingAction(Enlight_Event_EventArgs $args)
     {
-        $subject = $args->getSubject();
-        $action = Shopware()->Container()->get('front')->Request();
-        $action = $action->get('action');
 
-        if($action == 'rating') {
-            $this->onDetailRatingAction($args);
-            return;
-        }
-
-        /** @var Enlight_Controller_Action $controller */
+        /** @var Enlight_Controller_Action $controller *//*
         $controller = $args->get('subject');
 
-        /** @var Enlight_View_Default $view */
+        /** @var Enlight_View_Default $view *//*
         $view = $controller->View();
 
-        /** @var Enlight_Controller_Request_Request $request */
+        /** @var Enlight_Controller_Request_Request $request *//*
         $request = $controller->Request();
 
         if ($request->getActionName() !== 'index') {
@@ -241,4 +227,5 @@ class RatingSubscriber implements SubscriberInterface
             }
         }
     }
+    */
 }
